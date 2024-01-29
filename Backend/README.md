@@ -1,0 +1,1 @@
+Backend application which manages the logic and datastorage of the application.
