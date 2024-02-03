@@ -18,10 +18,10 @@ class Category(Base):
     organization = relationship("Organization", back_populates="categories",
                                 cascade="delete")
     items = relationship("Item", back_populates="category")
-    
+
     def __init__(self, **kwargs):
         """Initializes the class"""
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
         self.name = kwargs.get("name", None)
         self.description = kwargs.get("description", None)
         self.organization_id = kwargs.get("organization_id", None)

@@ -26,10 +26,10 @@ class Organization(Base):
     items = relationship("Item", back_populates="organization")
     purchases = relationship("Purchase", back_populates="organization")
     sales = relationship("Sale", back_populates="organization")
-    
+
     def __init__(self, **kwargs):
         """Initializes the class"""
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
         self.name = kwargs.get("name", None)
         self.country = kwargs.get("country", None)
         self.address = kwargs.get("address", None)

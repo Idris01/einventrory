@@ -26,7 +26,7 @@ class Sale(Base):
 
     def __init__(self, **kwargs):
         """Initializes the class"""
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
         self.date = kwargs.get("date")
         self.organization_id = kwargs.get("organization_id")
         self.user_id = kwargs.get("user_id")

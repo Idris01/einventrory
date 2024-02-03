@@ -1,7 +1,7 @@
 """This defines the items class which represent a product"""
 from . import Base
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float,\
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float, \
     Boolean
 from sqlalchemy.orm import relationship
 import uuid
@@ -34,7 +34,7 @@ class Item(Base):
 
     def __init__(self, **kwargs):
         """Initializes the class """
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
         self.name = kwargs.get("name", None)
         self.Category_id = kwargs.get("Category_id", None)
         self.created_by = kwargs.get("username", None)

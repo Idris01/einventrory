@@ -1,3 +1,4 @@
-from sqlalchemy.ext.declarative import declarative_base
+from .db import Database
 
-Base = declarative_base()
+storage = Database()
+storage.start_session()
