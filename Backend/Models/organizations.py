@@ -23,6 +23,9 @@ class Organization(Base):
     users = relationship("User", secondary='org_user_association',
                          viewonly=False, back_populates="organizations")
     categories = relationship("Category", back_populates="organization")
+    items = relationship("Item", back_populates="organization")
+    purchases = relationship("Purchase", back_populates="organization")
+    sales = relationship("Sale", back_populates="organization")
     
     def __init__(self, **kwargs):
         """Initializes the class"""

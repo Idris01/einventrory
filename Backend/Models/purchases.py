@@ -32,5 +32,6 @@ class Purchase(Base):
         self.user_id = kwargs.get("user_id")
         self.item_id = kwargs.get("item_id")
         self.quantity = kwargs.get("quantity")
+        self.purchase_cost = kwargs.get("total_cost")
         self.total_items_in_store = kwargs.get("new_item_total")
         self.details = kwargs.get("details")
