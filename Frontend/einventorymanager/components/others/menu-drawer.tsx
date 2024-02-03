@@ -1,14 +1,9 @@
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
-    DrawerDescription,
     DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
 import { HiOutlineMenuAlt3 as MenuIcon } from 'react-icons/hi'
 import Link from "next/link"
 import { HiOutlineHome as HomeIcon } from "react-icons/hi";
@@ -20,7 +15,7 @@ import { LuPhone as ContactUsIcon } from "react-icons/lu";
 export default function MenuDrawer () {
     return (
         <Drawer>
-        <DrawerTrigger><MenuIcon className='text-xl'/></DrawerTrigger>
+        <DrawerTrigger><MenuIcon className='text-2xl'/></DrawerTrigger>
         <DrawerContent>
             <div className="space-y-6 px-4 py-6">
                 <Link href='/' className="flex gap-3 items-center">
@@ -43,7 +38,7 @@ export default function MenuDrawer () {
             <DrawerFooter>
                 <div className="flex-grow text-center border-t pt-4">
                     <h1 className="text-xl font-semibold text-neutral-600">
-                        <span className="text-2xl font-extrabold text-green-600">e</span> Inventory Manager
+                        <span className="text-2xl font-extrabold text-green-600">go</span> Inventory Manager
                     </h1>
                 </div>
             </DrawerFooter>
