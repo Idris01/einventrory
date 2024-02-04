@@ -48,9 +48,9 @@ export default function RootLayout({
             <Link href='/contact-us'>
               <h1 className=" text-gray-800 hover:text-green-600 transition-colors duration-300">Contact us</h1>
             </Link>
-            <div className="bg-green-600 hover:bg-green-400 rounded-2xl px-8 py-1.5">
-              <AuthPopup type="login" title='Login'/>
-            </div>
+            <Link href='/login' className="bg-green-600 hover:bg-green-400 rounded-2xl px-8 py-1.5 text-white">
+              Login
+            </Link>
           </div>
         </header>
         {children}

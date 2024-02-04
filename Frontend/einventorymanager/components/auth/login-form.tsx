@@ -72,6 +72,7 @@ export default function LoginForm () {
             description='Enter credentials below and click the login button.'
             backButtonHref='/signup'
             backButtonLabel='Dont have an account? Sign up'
+            styles='text-green-700 mb-10'
         >
             <Form {...form}>
                 <form
@@ -132,13 +133,6 @@ export default function LoginForm () {
                                                 type='password'
                                                 />
                                             </FormControl>
-                                            <Button
-                                            variant='link'
-                                            size='lg'
-                                            className='px-auto w-full'
-                                            >
-                                                <Link href='/auth/reset'>Forgot Password</Link>
-                                            </Button>
                                             <FormMessage className='text-red-600'/>
                                         </FormItem>
                                     )}
@@ -153,6 +147,13 @@ export default function LoginForm () {
                         type='submit'
                         className='w-full bg-slate-900 text-white'
                     >{showtwoFactor ? 'Confirm' : 'Login' }</Button>
+                    <Button
+                                            variant='link'
+                                            size='lg'
+                                            className='px-auto w-full'
+                                            >
+                                                <Link href='/auth/reset'>Forgot Password</Link>
+                                            </Button>
                 </form>
             </Form>
         </CardWrapper>
