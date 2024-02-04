@@ -12,7 +12,7 @@ import {
  } from "react-icons/io";
 import { GoCheckCircle } from 'react-icons/go'
 import { PiNotepad } from 'react-icons/pi'
-import { TiShoppingCart } from 'react-icons/Ti'
+import { TiShoppingCart } from 'react-icons/ti'
 import { FaRegStar as StarIcon } from "react-icons/fa6";
 import heroImage from '@/assets/images/heroImage.png'
 import Image from "next/image";

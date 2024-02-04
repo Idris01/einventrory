@@ -40,8 +40,8 @@ export default function SignupForm () {
         setResSuccessMessage('')
         startTransition(async () => {
             const res = await signupAction(values)
-            if (res.success) setResSuccessMessage(res.success)
-            else if (res.error) setResErrorMessage(res.error)
+            if (res?.success) setResSuccessMessage(res.success)
+            else if (res?.error) setResErrorMessage(res.error)
             else setResErrorMessage('There was an error signing you up. Try again in a few minutes')
         })
     }
