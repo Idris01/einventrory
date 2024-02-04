@@ -16,6 +16,7 @@ import { TiShoppingCart } from 'react-icons/Ti'
 import { FaRegStar as StarIcon } from "react-icons/fa6";
 import heroImage from '@/assets/images/heroImage.png'
 import Image from "next/image";
+import AuthPopup from "@/components/others/auth-popup";
 
 
 export default function Home() {
@@ -49,9 +50,9 @@ export default function Home() {
           <Link href='/contact-us'>
             <h1 className=" text-gray-800 hover:text-green-600 transition-colors duration-300">Contact us</h1>
           </Link>
-          <Link href='/login' className="bg-green-600 hover:bg-green-400 rounded-2xl px-8 py-1.5">
-            <h1 className=" text-white font-bold hover:text-green-600 transition-colors duration-300">Login</h1>
-          </Link>
+          <div className="bg-green-600 hover:bg-green-400 rounded-2xl px-8 py-1.5">
+            <AuthPopup type="login" title='Login'/>
+          </div>
         </div>
       </header>
       <div className="space-y-20">
@@ -96,12 +97,12 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col md:flex-row gap-4 pt-4">
-                <Link href='/login' className="bg-green-600 hover:bg-green-400 rounded-full w-full text-center px-8 py-1.5">
-                  <h1 className=" text-white font-bold hover:text-green-600 transition-colors duration-300">Login to your account</h1>
-                </Link>
-                <Link href='/login' className="border-2 border-green-600 hover:border-green-400 w-full text-center rounded-full px-8 py-1.5">
-                  <h1 className="text-green-600 font-bold hover:text-green-600 transition-colors duration-300">Sign up for free</h1>
-                </Link>
+                <div className="bg-green-600 hover:bg-green-400 hover:cursor-pointer rounded-full w-full text-center px-8 py-1.5 text-white">
+                  <AuthPopup type="login" title='Login to your account'/>
+                </div>
+                <div className="border-2 border-green-600 hover:cursor-pointer text-green-600 hover:border-green-400 w-full text-center rounded-full px-8 py-1.5">
+                  <AuthPopup type="signup" title='Sign up for free'/>
+                </div>
               </div>
             </div>
           </div>
