@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """This defines the User classs and it's mappingss to the DB"""
 from . import Base
 from datetime import datetime

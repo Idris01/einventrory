@@ -1,13 +1,15 @@
+#!/usr/bin/env python3
 """ Handles ORM with SqlAlchemy for all classes. """
-from models import Base
-from models.users import User
-from models.organizations import Organization
-from models.items import Item
-from models.categories import Category
-from models.purchases import Purchase
-from models.sales import Sale
+from Models import Base
+from Models.users import User
+from Models.organizations import Organization
+from Models.items import Item
+from Models.categories import Category
+from Models.purchases import Purchase
+from Models.sales import Sale
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.exc import NoResultFound
 
 
 class Database:
@@ -34,3 +36,10 @@ class Database:
     def get_all_user(self):
         """Returns all users"""
         return self.__session.query(User).all()
+
+    def get_a_user(self, **kwargs):
+        """Gets a user"""
+        usr = self.__session.query(User).filter_by(**kwargs).first()
+        if not usr:
+            return NoResultFound
+        return usr

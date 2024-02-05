@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 """Authentication File"""
-# import bcrypt
+import bcrypt
 
-# """gets the db from the storage"""
-# from .db import DBStorage 
-
-#  """Imports users table from the user model"""
-# from .users import   
-# from sqlalchemy.orm.exc import NoResultFound
-# from uuid import uuid4
-# import jwt
+from Database.db import Database
+from Models.users import User
+from sqlalchemy.orm.exc import NoResultFound
+from uuid import uuid4
+import jwt
 
 def _hash_password(password: str) -> bytes:
     """Hashes the password and returns it bytes
@@ -29,21 +26,21 @@ class Auth:
     authentication database"""
 
     def __init__(self):
-        self._db = DBStorage()
+        self._db = Database()
 
-    def register_user(self, email: str, password: str, username: str,
+    def register_user(self, email: str, password: str,
                       firstname: str, lastname: str):
         """Registers a user to the database"""
         if password is None:
             raise ValueError("Password cannot be None")
-        user = self._db.get_user(email=email)
+        user = self._db.get_a_user(email=email)
         if user:
             raise ValueError(f"User {email} already exists")
-        return self._db.add_user(email, _hash_password(password), username, firstname, lastname)
+        return self._db.register_user(email, _hash_password(password), firstname, lastname)
         
     def valid_login(self, email: str, password: str):
         """Validates the password"""
-        user = self._db.get_user(email=email)
+        user = self._db.get_all_user(email=email)
         if not user:
             return False
         
@@ -71,7 +68,7 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str):
         """Gets a user from a session id"""
-        session_user = self._db.get_user(session_id=session_id)
+        session_user = self._db.get_a_user(session_id=session_id)
         if not session_user:
             return None
         return session_user
