@@ -9,7 +9,7 @@ from Models.purchases import Purchase
 from Models.sales import Sale
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy.exc import NoResultFound
+# from sqlalchemy.exc import NoResultFound
 
 
 class Database:
@@ -25,10 +25,11 @@ class Database:
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=True)
         self.__session = scoped_session(session_factory)
+        return self.__session
 
-    def register_user(self, **kwargs):
+    def register_user(self, email: str, hashed_password: str, firstname: str, lastname: str):
         """Registers a user to the database."""
-        new_user = User(**kwargs)
+        new_user = User(email=email, hashed_password=hashed_password, firstname=firstname, lastname=lastname)
         self.__session.add(new_user)
         self.__session.commit()
         return new_user
@@ -39,7 +40,8 @@ class Database:
 
     def get_a_user(self, **kwargs):
         """Gets a user"""
-        usr = self.__session.query(User).filter_by(**kwargs).first()
+        SESSION = self.start_session()
+        usr = SESSION.query(User).filter_by(**kwargs).first()
         if not usr:
-            return NoResultFound
+            return None
         return usr

@@ -20,8 +20,8 @@ class User(Base):
     """defines User class"""
     __tablename__ = 'users'
     id = Column(String(128), primary_key=True)
-    last_name = Column(String(128), nullable=False)
-    first_name = Column(String(128), nullable=False)
+    lastname = Column(String(128), nullable=False)
+    firstname = Column(String(128), nullable=False)
     email = Column(String(128))
     created_at = Column(DateTime, default=datetime.utcnow)
     hashed_password = Column(String(250), nullable=False)

@@ -27,19 +27,3 @@ class Email:
             to_addrs=email,
             msg=message2
         )
-
-    def checkCode(self, entered_code, stored_code):
-        return entered_code == stored_code
-
-if __name__ == '__main__':
-    email_instance = Email()
-    userMail = input('Enter address: ')
-    veCode = email_instance.generate_password()
-    store = veCode
-    email_instance.send_mail(userMail, veCode)
-
-    entered_code = input('Enter the verification code received: ')
-    if email_instance.checkCode(entered_code, store):
-        print('Verification Successful')
-    else:
-        print('Verification failed')

@@ -1,11 +1,16 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 from flask import Flask, jsonify
 from flask_cors import CORS
-from Models.users import User
 from Database.db import Database
+from api.v1.views import app_look
 
 app = Flask(__name__)
-# cors = CORS
+app.register_blueprint(app_look)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+# @app.teardown_appcontext()
+# def closeDB(e):
+#     return Database.close()
 
 @app.errorhandler(404)
 def notFound(err):
