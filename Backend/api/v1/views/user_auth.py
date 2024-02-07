@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from flask import jsonify, request, redirect, abort
-from api.v1 import app_look
+from api.v1.views import app_look
 from emailVerification import Email
 from database import storage
 from datetime import datetime, timedelta

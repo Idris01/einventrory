@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Main flask app"""
-from api.v1 import create_app
+from api.v1.app_creator import create_app
 from flask import jsonify
 from database import storage
 

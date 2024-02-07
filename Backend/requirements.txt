@@ -1,5 +1,5 @@
-pip install flask
-pip install sqlalchemy
-pip install bcrypt
-pip install -U flask-cors
-pip install flask-jwt-extended
+flask
+sqlalchemy
+bcrypt
+flask-cors
+flask-jwt-extended
