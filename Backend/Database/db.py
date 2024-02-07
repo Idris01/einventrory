@@ -60,7 +60,7 @@ class Database:
         user = self.get_user_by_id(kwargs.get("user_id"))
         org = Organization(**kwargs)
         self.__session.add(org)
-        user.organizations.append(org)
+        user.organizations.append(org, {'user_role': "Admin"})
         self.__session.commit()
         return org
 

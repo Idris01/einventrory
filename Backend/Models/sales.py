@@ -10,7 +10,7 @@ class Sale(Base):
     """Records all item sales or removal processed
        by the organization. """
     __tablename__ = "sales"
-    id = Column(String(128), primary_key=True)
+    id = Column(String(60), primary_key=True)
     date = Column(DateTime, nullable=False)
     organization_id = Column(String(128), ForeignKey("organizations.id"),
                              nullable=False)

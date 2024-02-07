@@ -10,7 +10,7 @@ import uuid
 class Item(Base):
     """Defines the Item class"""
     __tablename__ = "items"
-    id = Column(String(128), primary_key=True)
+    id = Column(String(60), primary_key=True)
     name = Column(String(128), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)

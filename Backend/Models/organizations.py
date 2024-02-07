@@ -9,7 +9,7 @@ import uuid
 class Organization(Base):
     """Defines the organization class"""
     __tablename__ = "organizations"
-    id = Column(String(128), primary_key=True)
+    id = Column(String(60), primary_key=True)
     name = Column(String(128), nullable=False)
     country = Column(String(128), nullable=False)
     address = Column(String(128))

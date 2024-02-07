@@ -10,7 +10,7 @@ class Purchase(Base):
     """Records all item purchases or returns processed
        by the organization. """
     __tablename__ = "purchases"
-    id = Column(String(128), primary_key=True)
+    id = Column(String(60), primary_key=True)
     date = Column(DateTime, nullable=False)
     organization_id = Column(String(128), ForeignKey("organizations.id"),
                              nullable=False)

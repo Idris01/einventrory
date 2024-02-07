@@ -9,23 +9,23 @@ from bcrypt import hashpw, gensalt, checkpw
 
 
 org_user_association = Table('org_user_association', Base.metadata,
-                             Column('organization_id', String,
+                             Column('organization_id', String(60),
                                     ForeignKey('organizations.id')),
-                             Column('user_id', Integer,
-                                    ForeignKey('users.id')))
+                             Column('user_id', String(60),
+                                    ForeignKey('users.id')),
+                             Column('user_role', String(60)))
 
 
 class User(Base):
     """defines User class"""
     __tablename__ = 'users'
-    id = Column(String(128), primary_key=True)
+    id = Column(String(60), primary_key=True)
     last_name = Column(String(128), nullable=False)
     first_name = Column(String(128), nullable=False)
     email = Column(String(128))
     created_at = Column(DateTime, default=datetime.utcnow)
     hashed_password = Column(String(250), nullable=False)
     mobile = Column(String(60))
-    user_role = Column(String(128), nullable=False)
     email_verified = Column(Boolean, default=False)
     mobile_verified = Column(Boolean, default=False)
     active_token = Column(String(128))
@@ -42,12 +42,8 @@ class User(Base):
         self.last_name = kwargs.get("last_name", None)
         self.first_name = kwargs.get("first_name", None)
         self.email = kwargs.get("email", None)
-        self.created_at = kwargs.get("created_at", datetime.utcnow())
         self.hashed_password = self.__hash_password(kwargs.get("password"))
         self.mobile = kwargs.get("mobile", None)
-        self.user_role = kwargs.get("user_role", None)
-        self.email_verified = kwargs.get("email_verified", None)
-        self.mobile_verified = kwargs.get("mobile_verified", None)
         self.image = kwargs.get("image", None)
 
     def __hash_password(cls, password: str) -> bytes:
