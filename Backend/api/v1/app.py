@@ -7,7 +7,7 @@ from database import storage
 app = create_app()
 
 
-@app.teardown_appcontext()
+@app.teardown_appcontext
 def closeDB(e=None):
     storage.end_session()
 

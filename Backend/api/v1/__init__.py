@@ -14,5 +14,3 @@ def create_app():
     jwt.init_app(app)
     app.register_blueprint(app_look)
     return app
-    
-
