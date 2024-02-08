@@ -13,8 +13,8 @@ Mail = Email()
 def reg_users():
     """Registers a user"""
     kwargs = {
-        "firstname": request.form.get('firstname'),
-        "lastname": request.form.get('lastname'),
+        "first_name": request.form.get('firstname'),
+        "last_name": request.form.get('lastname'),
         "email": request.form.get('email'),
         "password": request.form.get('password'),
         "mobile": request.form.get('mobile')
