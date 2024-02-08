@@ -43,7 +43,7 @@ def reg_users():
 def login():
     """Logs the user to the site"""
     email = request.form.get('email')
-    password: request.form.get('password')
+    password = request.form.get('password')
     user = storage.get_user_by_email(email)
     if not user:
         return jsonify({'message': "Wrong email"}), 401

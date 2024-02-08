@@ -22,7 +22,7 @@ def closeDB(e=None):
 
 @app.errorhandler(404)
 def notFound(err):
-    return jsonify({'error': 'Not found'}), 404
+    return jsonify({'error': f'Not found {err}'}), 404
 
 
 if __name__ == '__main__':
