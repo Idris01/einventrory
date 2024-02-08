@@ -13,8 +13,8 @@ Mail = Email()
 def reg_users():
     """Registers a user"""
     kwargs = {
-        "first_name": request.form.get('firstname'),
-        "last_name": request.form.get('lastname'),
+        "first_name": request.form.get('firstName'),
+        "last_name": request.form.get('lastName'),
         "email": request.form.get('email'),
         "password": request.form.get('password'),
         "mobile": request.form.get('mobile')
@@ -33,7 +33,7 @@ def reg_users():
     resp = {
         'message': "Signup successful. Verification email sent.",
         "jwt": access_token,
-        "fullname": f"{new_user.first_name} {new_user.last_name}",
+        "fullName": f"{new_user.first_name} {new_user.last_name}",
         "organization": new_user.organizations
     }
     return jsonify(resp), 200
@@ -53,7 +53,7 @@ def login():
     resp = {
         'message': "Signup successful. Verification email sent.",
         "jwt": access_token,
-        "fullname": f"{user.first_name} {user.last_name}",
+        "fullName": f"{user.first_name} {user.last_name}",
         "organization": user.organizations
     }
     return jsonify(resp), 200
