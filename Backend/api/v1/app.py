@@ -1,10 +1,18 @@
 #!/usr/bin/python3
 """Main flask app"""
-from api.v1.app_creator import create_app
-from flask import jsonify
+from flask import jsonify, Flask, jsonify
 from database import storage
+from flask_cors import CORS
+from api.v1.views import app_look
+from flask_jwt_extended import JWTManager
 
-app = create_app()
+app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = "super-secret"
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+jwt = JWTManager(app)
+app.register_blueprint(app_look)
+
+#app = create_app()
 
 
 @app.teardown_appcontext
