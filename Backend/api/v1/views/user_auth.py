@@ -21,7 +21,7 @@ def reg_users():
     }
 
     if kwargs["email"] is None or kwargs["password"] is None or\
-            kwargs['firstname'] is None or kwargs['lastname'] is None:
+            kwargs['first_name'] is None or kwargs['last_name'] is None:
         return jsonify({'message': 'Signup details is incomplete'}), 400
     new_user = storage.register_user(**kwargs)
     passW = Mail.generate_password()
