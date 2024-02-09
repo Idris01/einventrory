@@ -8,7 +8,7 @@ from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "super-secret"
-#app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=3)
+#app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=12)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 jwt = JWTManager(app)
 app.register_blueprint(app_look)

@@ -31,7 +31,7 @@ def reg_users():
     message = "Signup successful. Verification email sent."
     try:
         passW = Mail.generate_password()
-        #Mail.send_mail(kwargs['email'], passW)
+        Mail.send_mail(kwargs['email'], passW)
         new_user.active_token = passW
         new_user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
     except SMTPConnectError:
@@ -43,8 +43,6 @@ def reg_users():
         "jwt": access_token,
         "fullName": f"{new_user.first_name} {new_user.last_name}",
         "organization": new_user.organizations,
-        "token sent": new_user.active_token,
-        "expiry": new_user.token_expiry
     }
     return jsonify(resp), 200
 
@@ -65,7 +63,6 @@ def login():
         "jwt": access_token,
         "fullName": f"{user.first_name} {user.last_name}",
         "organization": user.organizations,
-        "token": user.active_token
     }
     return jsonify(resp), 200
     
@@ -76,7 +73,6 @@ def get_code():
     """Gets the verification code"""
     code = request.form.get('code')
 
-    print(code)
     user_id = get_jwt_identity()
     if not user_id:
         return jsonify({"message": "Invalid token"}), 400
@@ -93,10 +89,10 @@ def get_code():
         except SMTPConnectError:
             msg = "Verification code expired but error occurred resending code"
         return jsonify({"message": msg}), 400
-    print(user.active_token, user.email)
     if code != user.active_token:
         return jsonify({"message": "Wrong verification code"}), 400
     user.email_verified = True
     user.active_token = None
     user.token_expiry = None
+    storage.save()
     return jsonify({"message": "Email Verified"}), 200
