@@ -27,3 +27,4 @@ class Email:
             to_addrs=email,
             msg=message2
         )
+        session.quit()

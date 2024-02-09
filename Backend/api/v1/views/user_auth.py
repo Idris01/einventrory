@@ -6,6 +6,7 @@ from database import storage
 from datetime import datetime, timedelta
 from flask_jwt_extended import create_access_token, get_jwt_identity,\
     jwt_required
+from smtplib import SMTPConnectError
 
 Mail = Email()
 
@@ -24,14 +25,18 @@ def reg_users():
             kwargs['first_name'] is None or kwargs['last_name'] is None:
         return jsonify({'message': 'Signup details is incomplete'}), 400
     new_user = storage.register_user(**kwargs)
-    passW = Mail.generate_password()
-    Mail.send_mail(kwargs['email'], passW)
-    new_user.active_token = passW
-    new_user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
+    message = "Signup successful. Verification email sent."
+    try:
+        passW = Mail.generate_password()
+        Mail.send_mail(kwargs['email'], passW)
+        new_user.active_token = passW
+        new_user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
+    except SMTPConnectError:
+        message = "Signup successful but verification email could not be sent"
     access_token = create_access_token(identity=new_user.id)
     storage.save()
     resp = {
-        'message': "Signup successful. Verification email sent.",
+        'message': message,
         "jwt": access_token,
         "fullName": f"{new_user.first_name} {new_user.last_name}",
         "organization": new_user.organizations
