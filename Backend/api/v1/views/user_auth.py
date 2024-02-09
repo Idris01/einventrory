@@ -31,7 +31,7 @@ def reg_users():
     message = "Signup successful. Verification email sent."
     try:
         passW = Mail.generate_password()
-        Mail.send_mail(kwargs['email'], passW)
+        #Mail.send_mail(kwargs['email'], passW)
         new_user.active_token = passW
         new_user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
     except SMTPConnectError:
@@ -42,7 +42,9 @@ def reg_users():
         'message': message,
         "jwt": access_token,
         "fullName": f"{new_user.first_name} {new_user.last_name}",
-        "organization": new_user.organizations
+        "organization": new_user.organizations,
+        "token sent": new_user.active_token,
+        "expiry": new_user.token_expiry
     }
     return jsonify(resp), 200
 
@@ -59,10 +61,11 @@ def login():
         return jsonify({'message': "Wrong password"}), 401
     access_token = create_access_token(identity=user.id)
     resp = {
-        'message': "Signup successful. Verification email sent.",
+        'message': "Login Succesful",
         "jwt": access_token,
         "fullName": f"{user.first_name} {user.last_name}",
-        "organization": user.organizations
+        "organization": user.organizations,
+        "token": user.active_token
     }
     return jsonify(resp), 200
     
