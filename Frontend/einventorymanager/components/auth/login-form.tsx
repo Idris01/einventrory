@@ -20,6 +20,7 @@ import { loginAction } from '@/actions/login'
 import { useState, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { signup } from '@/components/urls';
 
 
 export default function LoginForm () {
@@ -70,7 +71,7 @@ export default function LoginForm () {
         <CardWrapper
             title='Login'
             description='Enter credentials below and click the login button.'
-            backButtonHref='/signup'
+            backButtonHref={signup}
             backButtonLabel='Dont have an account? Sign up'
             styles='text-green-700 mb-10'
         >
