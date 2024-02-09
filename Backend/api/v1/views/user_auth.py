@@ -76,6 +76,7 @@ def get_code():
     """Gets the verification code"""
     code = request.form.get('code')
 
+    print(code)
     user_id = get_jwt_identity()
     if not user_id:
         return jsonify({"message": "Invalid token"}), 400
@@ -83,13 +84,15 @@ def get_code():
     if not user:
         return jsonify({"message": "Invalid token claims"}), 400
     if user.token_expiry < datetime.utcnow():
-        passW = Mail.generate_password()
-        Mail.send_mail(user.email, passW)
-        user.active_token = passW
-        user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
-        message = "Verification code expired, new code has been resent"
-        return jsonify({"message": message}), 400
-    print(code)
+        try:
+            passW = Mail.generate_password()
+            Mail.send_mail(user.email, passW)
+            user.active_token = passW
+            user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
+            msg = "Verification code expired, new code has been resent"
+        except SMTPConnectError:
+            msg = "Verification code expired but error occurred resending code"
+        return jsonify({"message": msg}), 400
     print(user.active_token, user.email)
     if code != user.active_token:
         return jsonify({"message": "Wrong verification code"}), 400

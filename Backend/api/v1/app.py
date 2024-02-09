@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Main flask app"""
-from flask import jsonify, Flask, jsonify
+from flask import jsonify, Flask
 from database import storage
 from flask_cors import CORS
 from api.v1.views import app_look
@@ -8,11 +8,10 @@ from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "super-secret"
+#app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=3)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 jwt = JWTManager(app)
 app.register_blueprint(app_look)
-
-#app = create_app()
 
 
 @app.teardown_appcontext
