@@ -19,7 +19,8 @@ class Email:
 
         message2 = f'Subject: {subject}\n\n{body}'
         
-        session = smtplib.SMTP('smtp.gmail.com', 465)
+        session = smtplib.SMTP('smtp.gmail.com', 587)
+        session.ehlo()
         session.starttls()
         session.login(sender_mail, sender_pass)
         session.sendmail(
