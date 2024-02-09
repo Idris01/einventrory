@@ -89,6 +89,8 @@ def get_code():
         user.token_expiry = datetime.utcnow() + timedelta(minutes=10)
         message = "Verification code expired, new code has been resent"
         return jsonify({"message": message}), 400
+    print(code)
+    print(user.active_token, user.email)
     if code != user.active_token:
         return jsonify({"message": "Wrong verification code"}), 400
     user.email_verified = True
