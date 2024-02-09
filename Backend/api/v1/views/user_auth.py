@@ -24,6 +24,9 @@ def reg_users():
     if kwargs["email"] is None or kwargs["password"] is None or\
             kwargs['first_name'] is None or kwargs['last_name'] is None:
         return jsonify({'message': 'Signup details is incomplete'}), 400
+    user = storage.get_user_by_email(kwargs["email"])
+    if user:
+        return jsonify({'message': "email already exits"}), 400
     new_user = storage.register_user(**kwargs)
     message = "Signup successful. Verification email sent."
     try:
