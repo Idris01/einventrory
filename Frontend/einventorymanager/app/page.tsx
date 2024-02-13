@@ -17,6 +17,8 @@ import { FaRegStar as StarIcon } from "react-icons/fa6";
 import heroImage from '@/assets/images/heroImage.png'
 import Image from "next/image";
 import AuthPopup from "@/components/others/auth-popup";
+import PublicNavbar from "@/components/others/public-navbar";
+import PublicFooter from "@/components/others/public-footer";
 
 
 export default function Home() {
@@ -28,6 +30,9 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen">
+      <div className="w-full sticky top-0 left-0">
+        <PublicNavbar />
+      </div>
       <div className="space-y-20">
         <div className="md:flex justify-center space-y-10 md:space-x-12 items-center pl-4 md:pl-16">
           <div className="md:w-4/5 md:pl-12 space-y-3">
@@ -142,6 +147,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <PublicFooter />
       </div>
     </main>
   );
