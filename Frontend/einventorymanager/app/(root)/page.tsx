@@ -17,7 +17,11 @@ import { FaRegStar as StarIcon } from "react-icons/fa6";
 import heroImage from '@/assets/images/heroImage.png'
 import Image from "next/image";
 import AuthPopup from "@/components/others/auth-popup";
+
 import { login, signup, home } from '@/components/urls';
+
+import PublicNavbar from "@/components/others/public-navbar";
+import PublicFooter from "@/components/others/public-footer";
 
 
 export default function Home() {

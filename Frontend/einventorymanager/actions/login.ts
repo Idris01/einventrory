@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 import { LoginSchema } from '@/schemas'
 import * as z from 'zod'

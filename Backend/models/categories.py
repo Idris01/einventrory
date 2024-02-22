@@ -9,7 +9,7 @@ import uuid
 class Category(Base):
     """Defines the Category class which stores variou"""
     __tablename__ = "categories"
-    id = Column(String(128), primary_key=True)
+    id = Column(String(60), primary_key=True)
     name = Column(String(128), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     description = Column(String(128))
