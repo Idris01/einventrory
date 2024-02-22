@@ -1,6 +1,8 @@
 const home = '/'
 const login = '/login';
 const signup = '/signup';
-const contactUs = '/contact-us'
+const contact = '/contact'
+const about = '/about'
+const story = '/story'
 
-export { login, signup, home, contactUs}
+export { login, signup, home, contact, about, story}

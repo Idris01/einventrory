@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import MenuDrawer from '@/components/others/menu-drawer'
 import AuthPopup from '@/components/others/auth-popup'
-import { login, contactUs } from '@/components/urls';
+import { login, contact, about, story, home } from '@/components/urls';
 
 function PublicNavbar() {
   return (
@@ -16,16 +16,16 @@ function PublicNavbar() {
             <MenuDrawer />
           </div>
           <div className="hidden md:flex md:items-center md:justify-end md:gap-8">
-            <Link href='/'>
+            <Link href={home}>
               <h1 className=" text-gray-800 hover:text-green-600 transition-colors duration-300">Home</h1>
             </Link>
-            <Link href='/about-us'>
+            <Link href={about}>
               <h1 className="text-gray-800 hover:text-green-600 transition-colors duration-300">About us</h1>
             </Link>
-            <Link href='/our-story'>
+            <Link href={story}>
               <h1 className=" text-gray-800 hover:text-green-600 transition-colors duration-300">Our story</h1>
             </Link>
-            <Link href={contactUs}>
+            <Link href={contact}>
               <h1 className=" text-gray-800 hover:text-green-600 transition-colors duration-300">Contact us</h1>
             </Link>
             <Link href={login} className="bg-green-600 hover:bg-green-400 rounded-2xl px-8 py-1.5 text-white">
