@@ -10,7 +10,6 @@ import {
 } from "react-icons/io";
 import AuthPopup from "@/components/others/auth-popup";
 import MenuDrawer from "@/components/others/menu-drawer";
-import { login, contactUs } from '@/components/urls';
 
 import PublicNavbar from "@/components/others/public-navbar";
 import PublicFooter from "@/components/others/public-footer";
