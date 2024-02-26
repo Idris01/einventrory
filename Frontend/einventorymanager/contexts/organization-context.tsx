@@ -1,3 +1,5 @@
+'use client'
+
 import { Organization } from '@/interface';
 import axios from 'axios';
 import React, { createContext, useReducer, useContext, ReactNode, useEffect } from 'react';
@@ -89,7 +91,7 @@ const OrganizationProvider: React.FC<OrganizationProviderProps & { organizationI
       const getOrganization = async () => {
         try {
           dispatch({ type: ActionTypes.SET_LOADING, payload: true });
-          const response = await axios.post(`https://test-goinventorymanager.koyeb.app/organizations/${organizationId}`);
+          const response = await axios.get(`https://test-goinventorymanager.koyeb.app/organizations/${organizationId}`);
           console.log('Fetching org!!!!!')
           if (response.status === 200) {
             const organizationData: Organization = response.data;
@@ -98,6 +100,8 @@ const OrganizationProvider: React.FC<OrganizationProviderProps & { organizationI
         } catch (error) {
           console.error('Error fetching organization:', error);
           dispatch({ type: ActionTypes.SET_ERROR, payload: 'Failed to fetch organization data' });
+        } finally {
+          dispatch({ type: ActionTypes.SET_LOADING, payload: false });
         }
       };
   

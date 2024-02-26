@@ -11,6 +11,21 @@ export const LoginSchema = z.object({
     code: z.optional(z.string())
 })
 
+export const ForgotPasswordFormSchema = z.object({
+    email: z.string().email({
+        message: 'Enter a valid email!'
+    }),
+})
+
+export const ResetPasswordSchema = z.object({
+    newPassword: z.string().min(8, {
+        message: 'Password should be minimum 8 characters!'
+    }),
+    resetCode: z.string().length(6, {
+        message: 'Reset code should be  digits!'
+    })
+})
+
 export const SignupSchema = z.object({
     email: z.string().email({
         message: 'Enter a valid email'

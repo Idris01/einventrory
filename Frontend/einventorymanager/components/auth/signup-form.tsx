@@ -19,12 +19,15 @@ import FormError from '@/components/others/form-error'
 import FormSuccess from '@/components/others/form-success'
 import CardWrapper from './card-warpper'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 
 export default function SignupForm () {
     const [isPending, startTransition] = useTransition()
     const [resErrorMessage, setResErrorMessage] = useState('')
     const [resSuccessMessage, setResSuccessMessage] = useState('')
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof SignupSchema>>({
         resolver: zodResolver(SignupSchema),
@@ -41,17 +44,19 @@ export default function SignupForm () {
         formData.append('lastName', values.lastName);
 
         startTransition(async () => {
-            try {
-                const res = await axios.post('https://test-goinventorymanager.koyeb.app/api/v1/signup', formData)
-                if(res.status === 200) {
-                    localStorage.setItem('jwt', res.data.jwt)
+            await axios.post('https://test-goinventorymanager.koyeb.app/api/v1/signup', formData)
+            .then((res) => {
+                if (res.status === 200) {
+                    Cookies.set('jwt', res.data.jwt)
                     setResSuccessMessage(res.data.message)
+                    router.push('/user')
                 } else {
                     setResErrorMessage(res.data.message)
                 }
-            } catch (error: any) {
-                setResErrorMessage(error.message.error)
-            }
+            })
+            .catch((error) => {
+                setResErrorMessage(error)
+            })
         })
     }
 
@@ -127,7 +132,7 @@ export default function SignupForm () {
                                         <Input
                                          {...field}
                                          disabled={isPending}
-                                         placeholder='john'
+                                         placeholder='Evans'
                                         />
                                     </FormControl>
                                     <FormMessage className=''/>

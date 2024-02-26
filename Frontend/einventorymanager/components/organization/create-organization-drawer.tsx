@@ -12,11 +12,8 @@ function CreateOrgaizationDrawer() {
                 Create organization
             </Button>
         </DrawerTrigger>
-        <DrawerContent className='px-4'>
+        <DrawerContent className='w-full'>
             <CreateOrganizationForm />
-            <div className='border-t border-input h-20 flex justify-center items-center text-center'>
-              <Logo />
-            </div>
         </DrawerContent>
     </Drawer>
   )

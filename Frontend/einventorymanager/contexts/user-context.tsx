@@ -1,5 +1,9 @@
+'use client'
+
 import React, { createContext, useReducer, useContext, ReactNode, useEffect } from 'react';
 import { User as UserType } from '../interface';
+import axios from 'axios';
+import Cookie from 'js-cookie'
 
 
 interface UserState {
@@ -8,14 +12,12 @@ interface UserState {
   error: string | null;
 }
 
-// Define action types
 enum ActionTypes {
   SET_USER = 'SET_USER',
   SET_LOADING = 'SET_LOADING',
   SET_ERROR = 'SET_ERROR',
 }
 
-// Define action types for better TypeScript support
 interface SetUserAction {
   type: ActionTypes.SET_USER;
   payload: UserType;
@@ -33,14 +35,14 @@ interface SetErrorAction {
 
 type Action = SetUserAction | SetLoadingAction | SetErrorAction;
 
-// Initial state for the user context
+
 const initialState: UserState = {
   user: null,
   loading: true,
   error: null,
 };
 
-// Reducer function to handle state changes based on actions
+
 const userReducer = (state: UserState, action: Action): UserState => {
   switch (action.type) {
     case ActionTypes.SET_USER:
@@ -67,13 +69,12 @@ const userReducer = (state: UserState, action: Action): UserState => {
   }
 };
 
-// Create the user context
 const UserContext = createContext<{
   state: UserState;
   dispatch: React.Dispatch<Action>;
 } | undefined>(undefined);
 
-// UserProvider component to wrap your app and provide the context
+
 interface UserProviderProps {
   children: ReactNode;
 }
@@ -81,13 +82,33 @@ interface UserProviderProps {
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
 
-  // Add any additional setup logic, such as fetching user data, here
   useEffect(() => {
-    // Fetch user data from your backend (e.g., using fetch or Axios)
-    // Once you have the data, dispatch the SET_USER action
-    // Example:
-    // const userData = ... // Fetch user data
-    // dispatch({ type: ActionTypes.SET_USER, payload: userData });
+    const getUser = async () => {
+      try {
+        dispatch({ type: ActionTypes.SET_LOADING, payload: true });
+        const token = Cookie.get('jwt');
+        if (token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+          const response = await axios.post(`https://test-goinventorymanager.koyeb.app/user`);
+          console.log('Fetching user data!');
+
+          if (response.status === 200) {
+            const userData: UserType = response.data;
+            dispatch({ type: ActionTypes.SET_USER, payload: userData });
+          }
+        } else {
+          console.log('No token found');
+        }
+      } catch (error: any) {
+        console.error('Error fetching user data:', error);
+        dispatch({ type: ActionTypes.SET_ERROR, payload: error.message || 'Unknown error' });
+      } finally {
+        dispatch({ type: ActionTypes.SET_LOADING, payload: false });
+      }
+    };
+
+    getUser();
   }, []);
 
   return (
@@ -97,7 +118,7 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to access the user context in components
+
 const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {

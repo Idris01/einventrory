@@ -26,7 +26,7 @@ export default function CardWrapper ({
     backButtonHref,
 }: cardWrapperProps) {
     return (
-        <Card className="w-full h-full px-4">
+        <Card className="w-full md:shadow-md rounded-md pt-6 h-full px-4">
             <CardHeader>
                 <h1 className="font-extrabold text-4xl">{title}</h1>
                 <p className="text-sm text-muted-foreground">{description}</p>
@@ -35,7 +35,9 @@ export default function CardWrapper ({
                 {children}
             </CardContent>
             <CardFooter>
-                <Link href={backButtonHref || ''}>{backButtonLabel}</Link>
+                <div className="pt-6 text-center w-full flex justify-center items-center">
+                    <Link className="text-center text-blue-600" href={backButtonHref || ''}>{backButtonLabel}</Link>
+                </div>
             </CardFooter>
         </Card>
     )

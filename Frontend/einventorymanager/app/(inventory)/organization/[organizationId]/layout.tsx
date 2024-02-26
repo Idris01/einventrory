@@ -1,15 +1,20 @@
 'use client'
 
-import Dashboard from "@/components/organization/dashboard";
 import Navbar from "@/components/others/navbar";
 import Sidebar from "@/components/others/sidebar";
 import { OrganizationProvider } from "@/contexts/organization-context";
-import { useRouter } from "next/router";
 import React from "react";
 
-export default function InventoryManagementLayout({ params }) {
-    const organizationId = params.organizationId;
-    const children = params.children
+interface InventoryManagementLayoutProps {
+    params: {
+      organizationId: string;
+      children: React.ReactNode;
+    };
+}
+
+const InventoryManagementLayout: React.FC<InventoryManagementLayoutProps> = ({ params }) => {
+    const { organizationId, children } = params;
+  
     if (!organizationId) {
         return <div>Loading...</div>;
     }
@@ -30,3 +35,5 @@ export default function InventoryManagementLayout({ params }) {
         </OrganizationProvider>
     )
 }
+
+export default InventoryManagementLayout;
