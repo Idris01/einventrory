@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/contexts/user-context";
-import { CookieProvider } from "@/contexts/auth-context";
+import { OrganizationProvider } from "@/contexts/organization-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} relative min-h-screen custom-scrollbar`}>
-        {children}
+        <UserProvider>
+          <OrganizationProvider>
+            {children}
+          </OrganizationProvider>
+        </UserProvider>
       </body>
     </html>
   );

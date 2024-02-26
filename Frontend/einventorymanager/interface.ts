@@ -1,4 +1,4 @@
-export interface Organization {
+export interface OrganizationInterface {
     id: string;
     name: string;
     country: string;
@@ -9,13 +9,14 @@ export interface Organization {
     time_zone: string;
     mobile?: string | null;
     image?: string | null;
-    creator?: User;
-    users?: User[];
+    creator?: UserInterface;
+    users?: UserInterface[];
     categories?: Category[];
     items?: Item[];
     purchases?: Purchase[];
     sales?: Sale[];
 }
+
 
 
 export interface Category {
@@ -82,7 +83,7 @@ export interface Sale {
 }
 
 
-export interface User {
+export interface UserInterface {
     id: string;
     last_name: string;
     first_name: string;
@@ -91,13 +92,9 @@ export interface User {
     mobile?: string | null;
     email_verified: boolean;
     mobile_verified: boolean;
-    active_token?: string | null;
-    token_expiry?: string | null;
-    image?: string | null;
     organizations?: Organization[];
     org_created?: Organization[];
 }
-
 
 export interface OrgUserAssociation {
     organization_id: string;
