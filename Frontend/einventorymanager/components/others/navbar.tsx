@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function Navbar() {
     return (
-        <nav className="h-[70px] md:h-14 w-full border-b bg-background flex justify-between items-center px-4">
+        <nav className="h-16 w-full border-b bg-background flex justify-between items-center px-4">
             <div className="flex flex-grow item-center">
                 <Logo />
             </div>

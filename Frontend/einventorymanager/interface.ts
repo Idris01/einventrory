@@ -11,7 +11,7 @@ export interface OrganizationInterface {
     image?: string | null;
     creator?: UserInterface;
     users?: UserInterface[];
-    categories?: Category[];
+    categories?: CategoryInterface[];
     items?: Item[];
     purchases?: Purchase[];
     sales?: Sale[];
@@ -19,23 +19,21 @@ export interface OrganizationInterface {
 
 
 
-export interface Category {
+export interface CategoryInterface {
     id: string;
     name: string;
-    created_at: string;
+    imageUrl?: string | null;
     description?: string | null;
     organization_id: string;
-    organization: Organization;
-    items?: Item[];
 }
 
 
 export interface Item {
     id: string;
     name: string;
-    created_at: string;
-    updated_at: string;
-    Category_id?: string | null;
+    created_at?: string;
+    updated_at?: string;
+    category_id?: string | null;
     created_by?: string | null;
     image?: string | null;
     unit?: string | null;
@@ -46,8 +44,8 @@ export interface Item {
     alert_level: number;
     organization_id: string;
     obsolete: boolean;
-    organization: Organization;
-    category?: Category;
+    organization?: OrganizationInterface;
+    category?: CategoryInterface;
     purchase_history?: Purchase[];
     sale_history?: Sale[];
 }
@@ -63,7 +61,7 @@ export interface Purchase {
     purchase_cost: number;
     total_items_in_store?: number | null;
     details?: string | null;
-    organization: Organization;
+    organization: OrganizationInterface;
     item: Item;
 }
 
@@ -78,7 +76,7 @@ export interface Sale {
     sale_total: number;
     items_left?: number | null;
     details?: string | null;
-    organization: Organization;
+    organization: OrganizationInterface;
     item: Item;
 }
 
@@ -92,8 +90,8 @@ export interface UserInterface {
     mobile?: string | null;
     email_verified: boolean;
     mobile_verified: boolean;
-    organizations?: Organization[];
-    org_created?: Organization[];
+    organizations?: OrganizationInterface[];
+    org_created?: OrganizationInterface[];
 }
 
 export interface OrgUserAssociation {

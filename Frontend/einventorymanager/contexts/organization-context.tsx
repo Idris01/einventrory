@@ -28,14 +28,13 @@ interface OrganizationProviderProps {
 
 export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ children }) => {
   const [organization, setOrganization] = useState<OrganizationInterface | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false); // Set to false initially
   const [error, setError] = useState<string | null>(null);
 
   const fetchOrganization = async (organizationId: string) => {
     setLoading(true);
     try {
       const token = Cookies.get('jwt')
-      console.log({organizationId}, {token})
       const response = await fetch(`https://test-goinventorymanager.koyeb.app/api/v1/organizations/${organizationId}`, {
         method: 'GET',
         headers: {
@@ -44,7 +43,7 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch organization data');
+        throw new Error(`Failed to fetch organization data. Status: ${response.status}`);
       }
 
       const organizationData: OrganizationInterface = await response.json();
@@ -52,7 +51,8 @@ export const OrganizationProvider: React.FC<OrganizationProviderProps> = ({ chil
       setError(null);
     } catch (err: any) {
       console.error('Failed to fetch organization:', err);
-      setError('Failed to load organization data. Please try again.');
+      setError(err.message || 'Failed to load organization data. Please try again.');
+      setOrganization(null); // Set organization to null in case of error
     } finally {
       setLoading(false);
     }

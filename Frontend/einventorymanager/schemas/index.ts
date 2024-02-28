@@ -41,6 +41,40 @@ export const SignupSchema = z.object({
     })
 })
 
+export const SearchProductFormSchema = z.object({
+    searchTerm: z.string().min(3, {
+        message: 'Minimum 3 characters.'
+    })
+})
+
+export const AddCategoryFormSchema = z.object({
+    name: z.string().min(3, {
+        message: 'Minimum 3 characters.'
+    }),
+    description: z.string().min(10, {
+        message: 'Minimum 10 characters required.'
+    })
+})
+
+
+export const CreateNewProductFormSchema = z.object({
+    name: z.string().min(3, {
+        message: 'Minimum 3 characters.'
+    }),
+    description: z.string().min(10, {
+        message: 'Minimum 10 characters required.'
+    }),
+    purchasePrice: z.number(),
+    salePrice: z.number(),
+})
+
+export const AddProductFormSchema = z.object({
+    id: z.string().min(3, {
+        message: 'Minimum 3 characters.'
+    }),
+    quantity: z.number(),
+})
+
 
 export const ItemsTableSchema = z.object({
     id: z.string(),

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/contexts/user-context";
 import { OrganizationProvider } from "@/contexts/organization-context";
+import { CountriesProvider } from "@/contexts/countries-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={`${inter.className} relative min-h-screen custom-scrollbar`}>
         <UserProvider>
           <OrganizationProvider>
-            {children}
+            <CountriesProvider>
+              {children}
+            </CountriesProvider>
           </OrganizationProvider>
         </UserProvider>
       </body>

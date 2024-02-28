@@ -14,6 +14,7 @@ import FormError from '../others/form-error'
 import FormSuccess from '../others/form-success'
 import { Button } from '../ui/button'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 // export interface TimeZone {
 //     id: string,
@@ -34,6 +35,8 @@ const countryList = [
 
 
 function CreateOrganizationForm() {
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
     const [isPending, startTransition] = useTransition()
 
     const form = useForm<z.infer<typeof CreateOrgaizationFormSchema >>({
@@ -63,9 +66,32 @@ function CreateOrganizationForm() {
 
     const onSubmit = async (values: z.infer<typeof CreateOrgaizationFormSchema>) => {
         try {
-            const response = await axios.post('https://test-goinventorymanager.koyeb.app/', values)
-        } catch (error) {
-            
+            const formData = new FormData()
+            formData.append('name', values.name)
+            formData.append('country', values.country)
+            formData.append('address', values.address)
+            formData.append('description', values.description)
+            formData.append('mobile', values.mobile)
+            formData.append('timezone', values.timezone)
+            formData.append('image', 'https://images.pexels.com/photos/5668859/pexels-photo-5668859.jpeg?auto=compress&cs=tinysrgb&w=400')
+            const token = Cookies.get('jwt')
+            const response = await fetch(`https://test-goinventorymanager.koyeb.app/api/v1/organizations`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+              body: formData
+            })
+
+            if (!response.ok) {
+            const errorData = await response.json(); 
+                setErrorMessage(errorData.message || 'Failed to submit form');
+            }
+            const responseData = await response.json();
+            console.log('Submission was successful', responseData);
+        } catch (error: any) {
+            console.error('Submission failed', error.message);
+            setErrorMessage(error.message || 'Failed to submit form');
         }
     }
 

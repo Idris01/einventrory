@@ -12,6 +12,8 @@ import {
     Legend
 } from 'chart.js'
 import LineChart from './charts'
+import AddCategoryPopUp from './add-category-popup'
+import CreateNewProductPopup from './create-new-product-popup'
 
 ChartJS.register(
     ArcElement,
@@ -141,7 +143,10 @@ function DashboardContent() {
                         ))}
                     </div>
                 </div>
-                <div className='bg-background w-full p-4 flex-1 rounded-xl'></div>
+                <div className='bg-background w-full space-y-2 p-4 flex-1 rounded-xl'>
+                    <AddCategoryPopUp />
+                    <CreateNewProductPopup />
+                </div>
             </div>
         </div>
     </div>

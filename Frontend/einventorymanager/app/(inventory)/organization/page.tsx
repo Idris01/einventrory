@@ -6,17 +6,13 @@ import CreateOrgaizationPopup from '@/components/organization/create-organizatio
 import React, { useEffect, useState, useTransition } from 'react'
 import Navbar from '../../../components/others/navbar'
 import SpaceHelper4 from '@/components/others/space-helper-4'
-import { Organization } from '@/interface'
-import axios from 'axios'
-import { Accordion } from '@radix-ui/react-accordion'
-import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import Image from 'next/image'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { OrganizationInterface } from '@/interface'
+import Cookies from 'js-cookie'
+import Link from 'next/link'
 
 // Delete starts ----------------------
-import macdonalds from '@/assets/images/macdonals.png'
-import papaye from '@/assets/images/papaye.jpg'
-
-const orgsMock: Organization[] = [
+const orgsMock: OrganizationInterface[] = [
   {
     id: '2871bgw28282922i22',
     name: 'Mac Donalds',
@@ -57,50 +53,76 @@ const orgsMock: Organization[] = [
 // Delete ends ----------------------
 
 
+const fetchOrganizations = async () => {
+  try {
+    const token = Cookies.get('jwt')
+    const response = await fetch(`https://test-goinventorymanager.koyeb.app/api/v1/organizations`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+
+    if (!response.ok) {
+      // Attempt to parse error details from response body
+      const error = await response.json()
+      throw new Error(error.message || 'Failed to fetch organizations')
+    }
+
+    const organizationsData: OrganizationInterface[] = await response.json()
+    return organizationsData
+  } catch (error) {
+    throw error
+  }
+}
+
+
 function OrganizationPages() {
   const [isPending, startTransition] = useTransition()
-  const [organizations, setOrganizations] = useState<Organization[]>(orgsMock)
+  const [organizations, setOrganizations] = useState<OrganizationInterface[]>(orgsMock)
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
   // FOR ACTUAL ORGS
-  // useEffect(() => {
-  //   const getAllOrganizations = () => {
-  //     startTransition(async () => {
-  //       await axios.get('https://test-goinventorymanager.koyeb.app/organizations')
-  //       .then((res) => {
-  //           if (res.status === 200) {
-  //             setOrganizations(res.data.organizations)
-  //           }
-  //           else {
-  //             setErrorMessage(res.statusText)
-  //           }
-  //       })
-  //       .catch(() => setErrorMessage('Somethin went wrong. Please reload page'))
-  //     })
-  //   }
-  // }, [setOrganizations])
+  useEffect(() => {
+    const getAllOrganizations = async () => {
+      try {
+        // Clear previous error messages before fetching new data
+        console.log('yyyyyyyyyyyyyyyyyyy')
+        setErrorMessage('')
+        const organizationsData = await fetchOrganizations()
+        setOrganizations(organizationsData)
+        setSuccessMessage('Organizations fetched successfully')
+        console.log({organizationsData})
+      } catch (error: any) {
+        setErrorMessage(error.message || 'Something went wrong. Please try again later')
+      }
+    }
+    getAllOrganizations()
+  }, [])
 
   return (
     <div className='w-full h-screen flex flex-col'>
-      <div className='fixed top-0 left-0 h-[70px] bg-slate-400 md:h-14 w-full'>
+      <div className='fixed top-0 left-0 w-full'>
         <Navbar />
       </div>
-      <div className='flex flex-1 flex-col px-4 pt-[76px] md:pt-14'>
+      <div className='flex flex-1 flex-col px-4 pt-14'>
         <SpaceHelper4 />
-        <div className='w-full hidden md:flex'>
-              <CreateOrgaizationPopup />
+        <div className='pt-4'>
+          <div className='w-full hidden md:flex'>
+                <CreateOrgaizationPopup />
           </div>
           <div className='w-full md:hidden'>
-              <CreateOrgaizationDrawer />
+                <CreateOrgaizationDrawer />
+          </div>
         </div>
         <div className='w-full flex-grow'>
-          <div className='w-full h-full grid grid-cols-1 md:grid-cols-2'>
+          <div className='w-full h-full  grid grid-cols-1 md:grid-cols-2 md:hidden'>
             <Accordion type='multiple' className='w-full'>
               <div className='w-full pt-8'>
                 <p className='text-3xl font-extrabold'>Your organizations</p>
               </div>
-              {organizations.map((org) => (
+              {Array.isArray(organizations) && organizations.map((org) => (
                 <AccordionItem value={org.id} key={org.id}>
                     <AccordionTrigger>
                       <div className='flex gap-4 items-center'>
@@ -112,7 +134,7 @@ function OrganizationPages() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className='w-full'>
+                      <Link className='w-full' href={`/organization/${org.id}`}>
                         {org.image && (
                           
                           <img alt='text' src={org.image} className='rounded-xl h-60 w-full'/>
@@ -122,11 +144,28 @@ function OrganizationPages() {
                           <p className='text-muted-foreground text-xs overflow-hidden line-clamp-2'>
                             {org.description}</p>
                         </div>
-                      </div>
+                      </Link>
                     </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
+          </div>
+          <div className='hidden md:flex py-16 flex-grow w-full h-full'>
+            <div className='flex-grow overflow-auto'>
+              <h2 className='text-3xl font-bold'>Your organizations</h2>
+              {Array.isArray(organizations) && organizations.map((org) => (
+                <Link href={`/organization/${org.id}`} key={org.id} className='flex items-center gap-4'>
+                  <div className='flex items-center'>
+                    <img alt='image' src={org.image} className='w-14 h-14 rounded-xl'/>
+                  </div>
+                  <div className=''>
+                    <p className='text-left font-extrabold'>{org.name} | {org.country}</p>
+                    <p className='text-xs text-muted-foreground truncate'>{org.address} | {org.mobile}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className='flex-grow'></div>
           </div>
         </div>
         <SpaceHelper4 />
