@@ -67,6 +67,7 @@ export default function SignupForm () {
             description='Enter credentials below and click the sign up button.'
             backButtonHref= {login}
             backButtonLabel='Already have an account? Login'
+            styles='text-green-700 mb-5'
         >
             <Form {...form}>
                 <form 

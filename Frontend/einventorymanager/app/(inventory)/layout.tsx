@@ -11,7 +11,7 @@ export default function InventoryManagementLayout({
 ) {
     return (
         <div className="min-h-screen flex">
-            <Sidebar />
+            <Sidebar organizationId="001Default" />
             <main className="h-screen overflow-hidden flex-grow flex flex-col">
                 <div className="stick top-0 z-10">
                     <Navbar />

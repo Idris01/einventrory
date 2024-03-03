@@ -20,7 +20,7 @@ import { loginAction } from '@/actions/login'
 import { useState, useTransition } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { signup } from '@/components/urls';
+import { signup, resetPassword, userPage } from '@/components/urls';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
@@ -60,7 +60,7 @@ export default function LoginForm () {
                 if (res.status === 200) {
                     setSuccessMessage(res.data.message)
                     Cookies.set('jwt', res.data.jwt)
-                    router.push('/user')
+                    router.push(userPage)
                 } else {
                     setErrorMessage(res.data.message)
                 }
@@ -78,7 +78,7 @@ export default function LoginForm () {
             description='Enter credentials below and click the login button.'
             backButtonHref={signup}
             backButtonLabel='Dont have an account? Sign up'
-            styles='text-green-700 mb-10'
+            styles='text-green-700 mb-5'
         >
             <Form {...form}>
                 <form
@@ -139,15 +139,6 @@ export default function LoginForm () {
                                                 type='password'
                                                 />
                                             </FormControl>
-                                            <FormMessage className='text-red-600'/>
-                                            <Button
-                                            variant='link'
-                                            size='lg'
-                                            className='px-auto w-full'
-                                            >
-                                                <Link href='/forgot-password'>Forgot Password</Link>
-                                            </Button>
-                                            <FormMessage />
                                         </FormItem>
                                     )}
                                 />
@@ -166,7 +157,7 @@ export default function LoginForm () {
                         size='lg'
                         className='px-auto w-full'
                         >
-                            <Link href='/auth/reset'>Forgot Password</Link>
+                            <Link href={ resetPassword }>Forgot Password</Link>
                     </Button>
                 </form>
             </Form>

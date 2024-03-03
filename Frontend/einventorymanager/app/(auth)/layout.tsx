@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} relative min-h-screen flex justify-center items-center flex-col`}>
   
         <main>
-          <section className='mb-4'>
+          <section className='my-[4rem]' >
             <Link href={home} className='flex flex-col-2 items-center text-gray-500 hover:text-gray-900'>
               <span className="border border-2 border-green-200 rounded flex justify-center p-2 hover:border-green-400">
                 <HomeIcon className="text-green-200 hover:text-green-400" />

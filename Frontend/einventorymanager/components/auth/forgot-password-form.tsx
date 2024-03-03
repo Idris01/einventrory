@@ -20,6 +20,8 @@ import { useState, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
 import axios from 'axios'
 
+import { login } from '@/components/urls'
+
 
 export default function ForgotPasswordForm () {
     const searchParams = useSearchParams()
@@ -102,8 +104,9 @@ export default function ForgotPasswordForm () {
             description={showResetCodeCondatiner
                 ? 'Enter reset code and new password below to continue'
                 : 'Enter email below to continue'}
-            backButtonHref='/login'
+            backButtonHref={login}
             backButtonLabel='Go back to login'
+            styles='text-green-700 mb-5'
         >
             {!showResetCodeCondatiner && (
                 <Form {...forgortPasswordform}>

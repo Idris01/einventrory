@@ -10,6 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { OrganizationInterface } from '@/interface'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Delete starts ----------------------
 const orgsMock: OrganizationInterface[] = [
@@ -126,7 +127,7 @@ function OrganizationPages() {
                 <AccordionItem value={org.id} key={org.id}>
                     <AccordionTrigger>
                       <div className='flex gap-4 items-center'>
-                        <img alt='image' src={org.image} className='w-14 h-14 rounded-xl'/>
+                        {org.image && <Image alt='image' src={org.image} className='w-14 h-14 rounded-xl'/> }
                         <div className=''>
                             <p className='text-left font-extrabold'>{org.name} | {org.country}</p>
                             <p className='text-xs text-muted-foreground truncate'>{org.address} | {org.mobile}</p>
@@ -156,7 +157,7 @@ function OrganizationPages() {
               {Array.isArray(organizations) && organizations.map((org) => (
                 <Link href={`/organization/${org.id}`} key={org.id} className='flex items-center gap-4'>
                   <div className='flex items-center'>
-                    <img alt='image' src={org.image} className='w-14 h-14 rounded-xl'/>
+                    {org.image && <Image alt='image' src={org.image} className='w-14 h-14 rounded-xl'/> }
                   </div>
                   <div className=''>
                     <p className='text-left font-extrabold'>{org.name} | {org.country}</p>

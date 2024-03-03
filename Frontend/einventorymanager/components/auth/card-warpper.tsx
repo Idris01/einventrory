@@ -30,7 +30,7 @@ export default function CardWrapper ({
     return (
         <Card className="w-full md:shadow-md rounded-md pt-6 h-full px-4">
             <CardHeader>
-                <h1 className="font-extrabold text-4xl">{title}</h1>
+                <h1 className={`font-extrabold text-4xl ${styles}`}>{title}</h1>
                 <p className="text-sm text-muted-foreground">{description}</p>
             </CardHeader>
             <CardContent className="px-4">

@@ -12,7 +12,7 @@ export interface CategoryContext {
     getCategoriesByOrganizationId: (organizationId: string) => Promise<Category[]>;
 }
 
-export const useCategoryContext = (): CategoryContext => {
+export function useCategoryContext(){
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
